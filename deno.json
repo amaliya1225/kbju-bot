@@ -1,0 +1,9 @@
+{
+  "unstable": ["kv"],
+  "deploy": {
+    "runtime": {
+      "type": "dynamic",
+      "entrypoint": "./main.js"
+    }
+  }
+}
