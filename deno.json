@@ -1,9 +1,30 @@
-{
-  "unstable": ["kv"],
-  "deploy": {
-    "runtime": {
-      "type": "dynamic",
-      "entrypoint": "./main.js"
-    }
+import { serve } from "https://deno.land/std/http/server.ts";
+
+const BOT_TOKEN = Deno.env.get("BOT_TOKEN");
+const WEBHOOK_KEY = Deno.env.get("WEBHOOK_KEY");
+
+serve(async (req) => {
+  const url = new URL(req.url);
+
+  if (url.pathname !== `/${WEBHOOK_KEY}`) {
+    return new Response("Forbidden", { status: 403 });
   }
-}
+
+  const update = await req.json();
+
+  if (update.message) {
+    const chatId = update.message.chat.id;
+    const text = update.message.text || "без текста";
+
+    await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        chat_id: chatId,
+        text: `Ты написал: ${text}`,
+      }),
+    });
+  }
+
+  return new Response("ok", { status: 200 });
+});
