@@ -10,7 +10,7 @@ const ACTIVITY = {
 };
 
 const GENDERS = new Set(["Мужской", "Женский"]);
-const GOALS = new Set(["Похудение", "Набор массы", "Сушка"]);
+const GOALS = new Set(["Похудение", "Набор массы", "Сушка", "Рекомпозиция"]);
 const STATE_TTL_MS = 24 * 60 * 60 * 1000;
 
 const genderKeyboard = {
@@ -34,6 +34,7 @@ const goalKeyboard = {
     [{ text: "Похудение" }],
     [{ text: "Набор массы" }],
     [{ text: "Сушка" }],
+    [{ text: "Рекомпозиция" }]
   ],
   resize_keyboard: true,
 };
@@ -206,11 +207,16 @@ async function handleMessage(message) {
       protein = state.weight * 1.8;
       fat = state.weight * 1.0;
       goalText = "💪 Набор массы — профицит 10%";
-    } else {
-      calories *= 0.85;
+    } else if (text === "Рекомпозиция") {
+      calories *= 0.95;
       protein = state.weight * 2.2;
       fat = state.weight * 0.8;
-      goalText = "🏋️ Сушка — дефицит 15%";
+      goalText = "🎯 Рекомпозиция – дефицит 5%";
+   } else {
+     calories *= 0.85;
+     protein = state.weight * 2.2;
+     fat = state.weight * 0.8;
+     goalText = "🔥 Сушка – дефицит 15%";}
     }
 
     const carbs = Math.max(0, (calories - protein * 4 - fat * 9) / 4);
