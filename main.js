@@ -198,12 +198,12 @@ async function handleMessage(message) {
 
     if (text === "Похудение") {
       calories *= 0.85;
-      protein = state.weight * 2.0;
+      protein = state.weight * 1.8;
       fat = state.weight * 0.8;
       goalText = "🔥 Похудение — дефицит 15%";
     } else if (text === "Набор массы") {
       calories *= 1.1;
-      protein = state.weight * 2.0;
+      protein = state.weight * 1.8;
       fat = state.weight * 1.0;
       goalText = "💪 Набор массы — профицит 10%";
     } else {
