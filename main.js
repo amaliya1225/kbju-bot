@@ -212,11 +212,11 @@ async function handleMessage(message) {
       protein = state.weight * 2.2;
       fat = state.weight * 0.8;
       goalText = "🎯 Рекомпозиция – дефицит 5%";
-   } else {
-     calories *= 0.85;
-     protein = state.weight * 2.2;
-     fat = state.weight * 0.8;
-     goalText = "🔥 Сушка – дефицит 15%";}
+    } else {
+      calories *= 0.85;
+      protein = state.weight * 2.2;
+      fat = state.weight * 0.8;
+      goalText = "🔥 Сушка – дефицит 15%";
     }
 
     const carbs = Math.max(0, (calories - protein * 4 - fat * 9) / 4);
